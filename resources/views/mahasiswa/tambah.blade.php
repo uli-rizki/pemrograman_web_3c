@@ -24,41 +24,51 @@
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <form action="/mahasiswa/tambah" method="POST">
                     @csrf
                     <div>
                         <label>NIM</label>
-                        <input type="text" id="nim" name="nim" required>
+                        <input type="text" id="nim" name="nim" value="{{ old('nim') }}">
                     </div>
                     <div>
                         <label>Nama Lengkap</label>
-                        <input type="text" id="nama_lengkap" name="nama_lengkap" required>
+                        <input type="text" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}">
                     </div>
                     <div>
                         <label>Jenis Kelamin</label>
                         <select id="jenis_kelamin" name="jenis_kelamin" required>
-                            <option value="laki-laki">Laki-laki</option>
-                            <option value="perempuan">Perempuan</option>
+                            <option {{ old('jenis_kelamin') == "laki-laki" ? "selected" : "" }} value="laki-laki">Laki-laki</option>
+                            <option {{ old('jenis_kelamin') == "perempuan" ? "selected" : "" }} value="perempuan">Perempuan</option>
                         </select>
                     </div>
                     <div>
                         <label>Tempat Lahir</label>
-                        <input type="text" id="tempat_lahir" name="tempat_lahir" required>
+                        <input type="text" id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required>
                     </div>
                     <div>
                         <label>Tanggal Lahir</label>
-                        <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
+                        <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
                     </div>
                     <div>
                         <label>Prodi</label>
                         <select id="prodi_id" name="prodi_id" required>
                             <option value="">--Pilih Prodi--</option>
-                            <option value="1">PTI</option>
+                            <option {{ old('prodi_id') == 1 ? "selected" : "" }} value="1">PTI</option>
                         </select>
                     </div>
                     <div>
                         <label>Tahun Angkatan</label>
-                        <input type="text" id="tahun_angkatan" name="tahun_angkatan" required>
+                        <input type="text" id="tahun_angkatan" name="tahun_angkatan" value="{{ old('tahun_angkatan') }}" required>
                     </div>
                     <div>
                         <button type="submit">Simpan</button>

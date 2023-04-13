@@ -26,6 +26,8 @@ Route::get('/portfolio', function() {
 Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
 Route::get('/mahasiswa/tambah', [MahasiswaController::class, 'tambah']);
 Route::post('/mahasiswa/tambah', [MahasiswaController::class, 'simpan']);
+Route::get('/mahasiswa/edit/{mahasiswa_id}', [MahasiswaController::class, 'edit']);
+Route::post('/mahasiswa/update/{mahasiswa_id}', [MahasiswaController::class, 'update']);
 
 Route::get('/prodi', [ProdiController::class, 'index']);
 

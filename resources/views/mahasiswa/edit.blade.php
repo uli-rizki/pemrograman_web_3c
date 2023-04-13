@@ -21,33 +21,49 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="container relative flex items-top justify-center min-h-screen bg-dark-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>NIM</th>
-                            <th>Nama Lengkap</th>
-                            <th>Prodi</th>
-                            <th>Tahun Angkatan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($mahasiswa as $val)
-                        <tr>
-                            <td>{{ $val->nim }}</td>
-                            <td>{{ $val->nama_lengkap }}</td>
-                            <td>{{ $val->prodi->nama_prodi }}</td>
-                            <td>{{ $val->tahun_angkatan }}</td>
-                            <td>
-                                <a href="/mahasiswa/edit/{{$val->mahasiswa_id}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <form action="/mahasiswa/update/{{$mahasiswa->mahasiswa_id}}" method="POST">
+                    @csrf
+                    <div>
+                        <label>NIM</label>
+                        <input type="text" id="nim" name="nim" value="{{$mahasiswa->nim}}" required>
+                    </div>
+                    <div>
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="nama_lengkap" name="nama_lengkap" value="{{$mahasiswa->nama_lengkap}}" required>
+                    </div>
+                    <div>
+                        <label>Jenis Kelamin</label>
+                        <select id="jenis_kelamin" name="jenis_kelamin" required>
+                            <option {{ $mahasiswa->jenis_kelamin == "laki-laki" ? "selected" : "" }} value="laki-laki">Laki-laki</option>
+                            <option {{ $mahasiswa->jenis_kelamin == "perempuan" ? "selected" : "" }} value="perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Tempat Lahir</label>
+                        <input type="text" id="tempat_lahir" name="tempat_lahir" value="{{$mahasiswa->tempat_lahir}}" required>
+                    </div>
+                    <div>
+                        <label>Tanggal Lahir</label>
+                        <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="{{$mahasiswa->tanggal_lahir}}" required>
+                    </div>
+                    <div>
+                        <label>Prodi</label>
+                        <select id="prodi_id" name="prodi_id" required>
+                            <option value="">--Pilih Prodi--</option>
+                            <option {{ $mahasiswa->prodi_id == 1 ? "selected" : "" }} value="1">PTI</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Tahun Angkatan</label>
+                        <input type="text" id="tahun_angkatan" name="tahun_angkatan" value="{{$mahasiswa->tahun_angkatan}}" required>
+                    </div>
+                    <div>
+                        <button type="submit">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </body>
